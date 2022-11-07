@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
    
 use App\Models\Story;
+use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
-  
+Use DB;
 class StoryController extends Controller
 {
     /**
@@ -16,7 +17,7 @@ class StoryController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $users = Story::latest()->paginate(5);    
+            $users = Story::where('user_id', auth()->user()->id)->paginate(5) ;  
             return view('story.index',compact('users'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
         }else{
@@ -81,7 +82,20 @@ class StoryController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Story $story)
+    public function show_view(Request $request)
+    {
+        $userid = User::where('username', $request->username)->first()->id;
+        $story = DB::table('story')
+                ->select('*')
+                ->where('story.user_id', '=', $userid)
+                ->where('story.slug', '=', $request->slug)
+                ->get();
+        //echo "<pre>"; print_r($story);
+        return view('story.show_view',compact('story'));
+    } 
+
+
+     public function show(Story $story)
     {
         return view('story.show',compact('story'));
     } 

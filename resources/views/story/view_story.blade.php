@@ -7,7 +7,12 @@
             <figure>
                 <div class="snipcart-item block">
                    <div class="snipcart-thumb">
-                       <a href="{{route('story.show', $user->id)}}"><img src="{{asset('images/').'/'.$user->content_with_image}}" height="200" width="200"></a>
+                <?php $c = DB::table('users')
+                ->select('users.username')
+                ->where('users.id',$user->user_id)
+                ->get(); ?>
+
+                       <a href="{{route('story.show', '@'.$c[0]->username.'/'.$user->slug)}}"><img src="{{asset('images/').'/'.$user->content_with_image}}" height="200" width="200"></a>
                        <h4>{{$user->title}} </h4>
                        <a href="{{ route('story.edit',$user->id) }}">Edit</a>
                    </div>
