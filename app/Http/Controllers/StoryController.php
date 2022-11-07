@@ -33,7 +33,11 @@ class StoryController extends Controller
      */
     public function create()
     {
-        return view('story.create');
+        if (Auth::check()) {
+            return view('story.create');
+        }else{
+            return redirect('/login');
+        }
     }
     
     /**
@@ -81,7 +85,7 @@ class StoryController extends Controller
     {
         return view('story.show',compact('story'));
     } 
-         
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -90,7 +94,11 @@ class StoryController extends Controller
      */
     public function edit(Story $story)
     {
-        return view('story.edit',compact('story'));
+        if (Auth::check()) {
+            return view('story.edit',compact('story'));
+        }else{
+            return redirect('/login');
+        }
     }
     
     /**
@@ -139,9 +147,13 @@ class StoryController extends Controller
      */
     public function destroy(Story $story)
     {
+        if (Auth::check()) {
         $story->delete();
     
         return redirect()->route('story.index')
                         ->with('success','Story deleted successfully');
+        }else{
+            return redirect('/login');
+        }
     }
 }

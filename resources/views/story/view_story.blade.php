@@ -9,6 +9,7 @@
                    <div class="snipcart-thumb">
                        <a href="{{route('story.show', $user->id)}}"><img src="{{asset('images/').'/'.$user->content_with_image}}" height="200" width="200"></a>
                        <h4>{{$user->title}} </h4>
+                       <a href="{{ route('story.edit',$user->id) }}">Edit</a>
                    </div>
                    <div class="snipcart-details top_brand_home_details">
                      <form action="#" method="post">

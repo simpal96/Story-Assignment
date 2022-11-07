@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
-                <a class="card-header" href="{{ url('/story') }}"><b>Story List</b></a>
+                <a class="card-header" href="{{ url('/story') }}"><b>Go To Story List For Updates</b></a>
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
